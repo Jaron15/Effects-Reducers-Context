@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -11,20 +11,35 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // form validity effect ran everytime the 
+  // enteredEmail/Password state is changed
+  useEffect(() => {
+    // setTimeout makes effect run only after not typing for 500 milliseconds
+      const Identifier = setTimeout(() => {
+        console.log("Checking for validity!");
+        setFormIsValid(
+          enteredEmail.includes('@') && enteredPassword.trim().length > 6
+        );
+      }, 500);
+      
+  //(cleanup function) Resets timeout timer everytime effect is ran [dependencies]
+      return () => {
+        clearTimeout(Identifier)
+        console.log('CLEANUP');
+        
+      };
+    }, [enteredEmail, enteredPassword])
+
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
 
-    setFormIsValid(
-      event.target.value.includes('@') && enteredPassword.trim().length > 6
-    );
+    
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
 
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes('@')
-    );
+    
   };
 
   const validateEmailHandler = () => {
