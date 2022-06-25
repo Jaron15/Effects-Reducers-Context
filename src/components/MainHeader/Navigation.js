@@ -4,6 +4,8 @@ import AuthContext from '../../store/auth-context';
 import classes from './Navigation.module.css';
 
 const Navigation = () => {
+  // provide AuthContext to render jsx dynamically
+  // using the isLoggedIn and onLogout functions passed in using AuthContextProvider in '../../store/auth-context'
   const ctx = useContext(AuthContext)
 
   return (

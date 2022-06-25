@@ -7,6 +7,8 @@ import AuthContext from './store/auth-context';
 
 
 function App() {
+  // provide AuthContext to render jsx dynamically
+  // using the isLoggedIn function passed in using AuthContextProvider in '../../store/auth-context'
   const ctx = useContext(AuthContext);
 
   return ( 
